@@ -64,16 +64,6 @@ const AdminRelatorios = () => {
   const [selectedProfessionalId, setSelectedProfessionalId] = useState<string | null>(null);
   const [startDate, setStartDate] = useState(() => format(startOfMonth(new Date()), "yyyy-MM-dd"));
   const [endDate, setEndDate] = useState(() => format(new Date(), "yyyy-MM-dd"));
-  const [stats, setStats] = useState<ReportStats>({
-    totalAppointments: 0,
-    completedAppointments: 0,
-    cancelledAppointments: 0,
-    totalRevenue: 0,
-    averageTicket: 0,
-    topServices: [],
-    professionalStats: [],
-  });
-
   const adminSession = getSession();
   const isLoggedIn = !!adminSession;
 
@@ -188,11 +178,12 @@ const AdminRelatorios = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLoggedIn, startDate, endDate]);
 
-  useEffect(() => {
-    setStats(computeStats(appointmentsData, selectedProfessionalId));
-  }, [appointmentsData, selectedProfessionalId, professionals]);
-
   const handleLogout = () => logout();
+
+  const computedStats = useMemo(
+    () => computeStats(appointmentsData, selectedProfessionalId),
+    [appointmentsData, selectedProfessionalId, professionals]
+  );
 
   const formatCurrency = (value: number) =>
     `R$ ${value.toFixed(2).replace(".", ",")}`;
@@ -222,8 +213,8 @@ const AdminRelatorios = () => {
 
   const tableProfessionals = useMemo(
     () =>
-      stats.professionalStats.length > 0
-        ? stats.professionalStats
+      computedStats.professionalStats.length > 0
+        ? computedStats.professionalStats
         : professionals.map((p) => ({
             id: p.id,
             name: p.name,
@@ -231,7 +222,7 @@ const AdminRelatorios = () => {
             count: 0,
             revenue: 0,
           })),
-    [stats.professionalStats, professionals]
+    [computedStats.professionalStats, professionals]
   );
 
   if (!adminSession) {
@@ -476,13 +467,13 @@ const AdminRelatorios = () => {
                 </div>
                 <span className="text-white font-bold text-sm">Total</span>
                 <span className="text-[#00d9a5] font-bold text-lg">
-                  {formatCurrency(stats.totalRevenue)}
+                  {formatCurrency(computedStats.totalRevenue)}
                 </span>
               </button>
 
               {/* Professional Cards */}
-              {(stats.professionalStats.length > 0
-                ? stats.professionalStats
+              {(computedStats.professionalStats.length > 0
+                ? computedStats.professionalStats
                 : professionals.map((p) => ({
                     id: p.id,
                     name: p.name,
@@ -532,7 +523,7 @@ const AdminRelatorios = () => {
             <div className="bg-gradient-to-r from-[#2ecc71] to-[#27ae60] rounded-xl px-4 py-3 text-center">
               <span className="text-white font-semibold text-base block">Total</span>
               <span className="text-white font-bold text-lg block">
-                {formatCurrency(stats.totalRevenue)}
+                {formatCurrency(computedStats.totalRevenue)}
               </span>
             </div>
 
@@ -541,7 +532,7 @@ const AdminRelatorios = () => {
               <div>
                 <span className="text-white font-semibold text-base block">Serviços</span>
                 <span className="text-white font-bold text-lg block">
-                  {formatCurrency(stats.totalRevenue)}
+                  {formatCurrency(computedStats.totalRevenue)}
                 </span>
               </div>
               <div className="w-6 h-6 rounded bg-white/20 flex items-center justify-center">
@@ -634,7 +625,7 @@ const AdminRelatorios = () => {
                           </td>
                         ))}
                         <td className="text-white text-center px-3.5 py-3 border-t border-[#2a3d5a]">
-                          {formatCurrency(stats.totalRevenue)}
+                          {formatCurrency(computedStats.totalRevenue)}
                         </td>
                       </tr>
 
@@ -694,7 +685,7 @@ const AdminRelatorios = () => {
                           </td>
                         ))}
                         <td className="text-white font-bold text-center px-3.5 py-3 border-t border-[#2a3d5a]">
-                          {formatCurrency(stats.totalRevenue)}
+                          {formatCurrency(computedStats.totalRevenue)}
                         </td>
                       </tr>
 
@@ -709,7 +700,7 @@ const AdminRelatorios = () => {
                           </td>
                         ))}
                         <td className="text-white text-center px-3.5 py-3 border-t border-[#2a3d5a]">
-                          {formatCurrency(Math.round(stats.totalRevenue * 0.4))}
+                          {formatCurrency(Math.round(computedStats.totalRevenue * 0.4))}
                         </td>
                       </tr>
 
@@ -724,7 +715,7 @@ const AdminRelatorios = () => {
                           </td>
                         ))}
                         <td className="text-white text-center px-3.5 py-3 border-t border-[#2a3d5a]">
-                          {formatCurrency(Math.round(stats.totalRevenue * 0.6))}
+                          {formatCurrency(Math.round(computedStats.totalRevenue * 0.6))}
                         </td>
                       </tr>
                     </tbody>
