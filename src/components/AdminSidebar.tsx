@@ -73,7 +73,7 @@ const AdminSidebar = ({ onLogout }: AdminSidebarProps) => {
       <Button
         variant="ghost"
         size="icon"
-        className="fixed top-2 left-2 z-50 lg:hidden text-[#00d9a5]"
+        className="fixed top-1.5 left-2 z-50 lg:hidden text-[#00d9a5] bg-[#0a1628]"
         onClick={() => setIsOpen(!isOpen)}
       >
         {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}

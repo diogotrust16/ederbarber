@@ -236,7 +236,7 @@ const AdminRelatorios = () => {
     <div className="min-h-screen bg-[#0a1628] flex">
       <AdminSidebar onLogout={handleLogout} />
 
-      <main className="flex-1 flex flex-col overflow-y-auto pt-16 lg:pt-0">
+      <main className="flex-1 flex flex-col overflow-y-auto pt-0">
         {/* Fixed status bar */}
         <div className="sticky top-0 z-40 bg-[#0a1628] px-2 sm:px-3 lg:px-4 pl-12 sm:pl-14 py-1.5 border-b border-[#1a2d4a]">
           <div className="flex items-center justify-between gap-2 sm:gap-3 w-full max-w-[420px] sm:max-w-5xl mx-auto">
