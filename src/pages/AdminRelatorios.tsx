@@ -572,11 +572,11 @@ const AdminRelatorios = () => {
               {/* Total Detalhado Table */}
               <div className="bg-[#1e2a3a] rounded-2xl overflow-hidden">
                 <div className="overflow-x-auto max-w-[640px] w-full">
-                  <table className="min-w-[960px] text-base">
+                  <table className="min-w-[840px] text-base">
                     <thead>
                       <tr>
                         {/* Header: Label column */}
-                        <th className="bg-[#2ecc71] text-white font-bold text-left px-4 py-3.5 min-w-[120px]">
+                        <th className="bg-[#2ecc71] text-white font-bold text-left px-3 py-3.5 min-w-[92px]">
                           Total detalhado
                         </th>
                         {/* Professional columns */}
