@@ -63,9 +63,12 @@ const AdminLogin = () => {
 
       if (error) {
         console.error("Auth error:", error);
+        const serverMessage =
+          "Não foi possível validar suas credenciais no momento. Verifique sua conexão e tente novamente.";
+
         toast({
-          title: "Erro",
-          description: "Erro ao conectar com o servidor",
+          title: "Falha no login",
+          description: serverMessage,
           variant: "destructive",
         });
         return;
@@ -73,8 +76,8 @@ const AdminLogin = () => {
 
       if (!data.success) {
         toast({
-          title: "Erro",
-          description: data.error || "Credenciais inválidas",
+          title: "Credenciais incorretas",
+          description: data.error || "Telefone ou senha não conferem. Revise os dados e tente novamente.",
           variant: "destructive",
         });
         return;
@@ -96,8 +99,8 @@ const AdminLogin = () => {
     } catch (err) {
       console.error("Login error:", err);
       toast({
-        title: "Erro",
-        description: "Erro ao fazer login",
+        title: "Erro inesperado",
+        description: "Não foi possível concluir o login. Tente novamente em alguns segundos.",
         variant: "destructive",
       });
     } finally {

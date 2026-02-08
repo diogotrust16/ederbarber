@@ -162,9 +162,9 @@ const handleSave = () => {
   return (
     <div className="flex min-h-screen bg-[#0a1628]">
       <AdminSidebar onLogout={handleLogout} />
-      <main className="flex-1 p-4 lg:p-6 pt-16 lg:pt-6">
+      <main className="flex-1 p-4 lg:p-6 pt-16 lg:pt-6 pb-16">
         <div className="max-w-3xl mx-auto">
-          <div className="flex items-center justify-between mb-6">
+          <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between mb-6">
             <div className="flex items-center gap-3">
               <Building2 className="h-6 w-6 text-[#00d9a5]" />
               <h1 className="text-2xl font-bold text-white">Horários de Funcionamento</h1>
@@ -172,7 +172,7 @@ const handleSave = () => {
             <Button
               onClick={handleSave}
               disabled={saving}
-              className="bg-[#00d9a5] hover:bg-[#00d9a5]/90 text-[#0a1628]"
+              className="w-full sm:w-auto bg-[#00d9a5] hover:bg-[#00d9a5]/90 text-[#0a1628]"
             >
               {saving ? (
                 <Loader2 className="h-4 w-4 animate-spin mr-2" />
@@ -189,7 +189,7 @@ const handleSave = () => {
                 Configure os horários de abertura e fechamento
               </CardTitle>
             </CardHeader>
-            <CardContent className="space-y-4">
+            <CardContent className="space-y-4 pb-6 sm:pb-4">
               {schedule.map((day) => (
                 <div
                   key={day.day_of_week}
@@ -199,7 +199,7 @@ const handleSave = () => {
                       : "border-[#1a2d4a]/50 bg-[#0a1628]/50"
                   }`}
                 >
-                  <div className="flex items-center gap-3 min-w-[160px]">
+                  <div className="flex items-center justify-between sm:justify-start gap-3 w-full sm:w-auto">
                     <Switch
                       checked={day.is_open}
                       onCheckedChange={() => handleToggleDay(day.day_of_week)}
@@ -214,8 +214,8 @@ const handleSave = () => {
                   </div>
 
                   {day.is_open && (
-                    <div className="flex items-center gap-3 flex-1">
-                      <div className="flex items-center gap-2">
+                    <div className="flex flex-col sm:flex-row sm:items-center gap-3 flex-1 w-full">
+                      <div className="flex items-center gap-2 w-full sm:w-auto">
                         <Label className="text-gray-400 text-sm">Abre</Label>
                         <Input
                           type="time"
@@ -223,11 +223,11 @@ const handleSave = () => {
                           onChange={(e) =>
                             handleTimeChange(day.day_of_week, "open_time", e.target.value)
                           }
-                          className="w-[120px] bg-[#0d1f35] border-[#1a2d4a] text-white"
+                          className="w-full sm:w-[130px] bg-[#0d1f35] border-[#1a2d4a] text-white"
                         />
                       </div>
-                      <span className="text-gray-500">—</span>
-                      <div className="flex items-center gap-2">
+                      <span className="hidden sm:inline text-gray-500">—</span>
+                      <div className="flex items-center gap-2 w-full sm:w-auto">
                         <Label className="text-gray-400 text-sm">Fecha</Label>
                         <Input
                           type="time"
@@ -235,7 +235,7 @@ const handleSave = () => {
                           onChange={(e) =>
                             handleTimeChange(day.day_of_week, "close_time", e.target.value)
                           }
-                          className="w-[120px] bg-[#0d1f35] border-[#1a2d4a] text-white"
+                          className="w-full sm:w-[130px] bg-[#0d1f35] border-[#1a2d4a] text-white"
                         />
                       </div>
                     </div>
