@@ -1,0 +1,49 @@
+project_id = "cudwavcwlhumeddjezsb"
+
+[functions.get-appointments]
+verify_jwt = false
+
+[functions.check-phone]
+verify_jwt = false
+
+[functions.admin-auth]
+verify_jwt = false
+
+[functions.admin-services]
+verify_jwt = false
+
+[functions.admin-appointments]
+verify_jwt = false
+
+[functions.get-availability]
+verify_jwt = false
+
+[functions.create-booking]
+verify_jwt = false
+
+[functions.admin-clients]
+verify_jwt = false
+
+[functions.admin-blocked-times]
+verify_jwt = false
+
+[functions.admin-professionals]
+verify_jwt = false
+
+[functions.admin-business-hours]
+verify_jwt = false
+
+[functions.admin-subscriptions]
+verify_jwt = false
+
+[functions.client-subscriptions]
+verify_jwt = false
+
+[functions.create-checkout]
+verify_jwt = false
+
+[functions.stripe-webhook]
+verify_jwt = false
+
+[functions.admin-stripe-status]
+verify_jwt = false
