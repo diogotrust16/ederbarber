@@ -160,10 +160,10 @@ const handleSave = () => {
   }
 
   return (
-    <div className="flex min-h-screen bg-[#0a1628]">
+    <div className="flex flex-col md:flex-row min-h-screen bg-[#0a1628]">
       <AdminSidebar onLogout={handleLogout} />
-      <main className="flex-1 p-4 lg:p-6 pt-16 lg:pt-6 pb-16">
-        <div className="max-w-3xl mx-auto">
+      <main className="flex-1 w-full p-4 lg:p-6 pt-16 lg:pt-6 pb-16">
+        <div className="max-w-3xl mx-auto w-full px-1 sm:px-0">
           <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between mb-6">
             <div className="flex items-center gap-3">
               <Building2 className="h-6 w-6 text-[#00d9a5]" />
