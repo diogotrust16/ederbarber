@@ -184,8 +184,9 @@ const AdminRelatorios = () => {
 
   useEffect(() => {
     fetchReport();
+    // invokeAdminFunction is stable from useAdminSession; omit to avoid effect loop
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isLoggedIn, startDate, endDate, invokeAdminFunction]);
+  }, [isLoggedIn, startDate, endDate]);
 
   useEffect(() => {
     setStats(computeStats(appointmentsData, selectedProfessionalId));
@@ -246,15 +247,17 @@ const AdminRelatorios = () => {
 
       <main className="flex-1 flex flex-col overflow-y-auto pt-16 lg:pt-0">
         {/* Fixed status bar */}
-        <div className="sticky top-0 z-40 bg-[#0a1628] px-4 lg:pl-4 pl-16 py-3 flex items-center justify-between gap-3 border-b border-[#1a2d4a]">
-          <div className="w-5" />
-          <div className="flex-1 flex justify-center">
-            <div className="flex items-center gap-2 px-5 py-2 rounded-full border border-[#00d9a5] text-[#00d9a5] bg-[#0f1d33] shadow-[0_0_12px_rgba(0,217,165,0.35)] text-sm font-semibold tracking-wide">
+        <div className="sticky top-0 z-40 bg-[#0a1628] px-2 sm:px-3 lg:px-4 pl-12 sm:pl-14 py-1.5 border-b border-[#1a2d4a]">
+          <div className="flex items-center justify-between gap-2 sm:gap-3 w-full max-w-[420px] sm:max-w-5xl mx-auto">
+            <div className="w-5" />
+            <div className="flex-1 flex justify-center">
+              <div className="flex items-center gap-2 px-3 py-1.5 rounded-full border border-[#00d9a5] text-[#00d9a5] bg-[#0f1d33] shadow-[0_0_8px_rgba(0,217,165,0.28)] text-xs sm:text-sm font-semibold tracking-wide">
               <MessageCircle className="h-4 w-4" />
               <span>WHATSAPP CONECTADO</span>
             </div>
           </div>
           <Bell className="h-5 w-5 text-[#00d9a5] opacity-80" />
+          </div>
         </div>
 
         {/* Top Section - matching reference design */}
