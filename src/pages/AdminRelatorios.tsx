@@ -225,6 +225,11 @@ const AdminRelatorios = () => {
     [computedStats.professionalStats, professionals]
   );
 
+  // Layout constants for detailed totals table
+  const LABEL_COL_MIN = 140;
+  const DATA_COL_MIN = 130;
+  const tableMinWidthPx = LABEL_COL_MIN + (tableProfessionals.length + 1) * DATA_COL_MIN;
+
   if (!adminSession) {
     return (
       <div className="min-h-screen bg-[#0a1628] flex items-center justify-center">
@@ -571,12 +576,18 @@ const AdminRelatorios = () => {
             <>
               {/* Total Detalhado Table */}
               <div className="bg-[#1e2a3a] rounded-2xl overflow-hidden">
-                <div className="overflow-x-auto max-w-[640px] w-full">
-                  <table className="min-w-[780px] text-base">
+                <div className="overflow-x-auto w-full">
+                  <table
+                    className="table-fixed w-full text-base rounded-2xl overflow-hidden"
+                    style={{ minWidth: `${tableMinWidthPx}px` }}
+                  >
                     <thead>
                       <tr>
                         {/* Header: Label column */}
-                        <th className="bg-[#2ecc71] text-white font-bold text-left px-2.5 py-3.5 min-w-[72px]">
+                        <th
+                          className="bg-[#2ecc71] text-white font-bold text-left px-2.5 py-3.5"
+                          style={{ minWidth: LABEL_COL_MIN, width: LABEL_COL_MIN }}
+                        >
                           Total detalhado
                         </th>
                         {/* Professional columns */}
@@ -586,29 +597,35 @@ const AdminRelatorios = () => {
                             <th
                               key={prof.id}
                               className={cn(
-                                "bg-[#1e2a3a] px-3.5 py-3 text-center min-w-[130px]",
+                                "bg-transparent px-2.5 py-3 text-center",
                                 isSelected ? "border-b-2 border-[#00d9a5]" : ""
                               )}
+                              style={{ minWidth: DATA_COL_MIN, width: DATA_COL_MIN }}
                             >
-                              <div className="flex flex-col items-center gap-1">
-                                <Avatar className="h-10 w-10 border-2 border-[#00d9a5]">
+                              <div className="flex flex-col items-center gap-2">
+                                <Avatar className="h-14 w-14 border-2 border-[#00d9a5]">
                                   <AvatarImage src={prof.avatar_url || undefined} alt={prof.name} />
-                                  <AvatarFallback className="bg-[#0a1628] text-[#00d9a5] text-xs font-bold">
+                                  <AvatarFallback className="bg-[#0a1628] text-[#00d9a5] text-[13px] font-bold">
                                     {prof.name.slice(0, 2).toUpperCase()}
                                   </AvatarFallback>
                                 </Avatar>
-                                <span className="text-white text-xs font-semibold">{prof.name.split(" ")[0]}</span>
+                                <span className="text-white text-[13px] font-semibold truncate max-w-[94px]">
+                                  {prof.name.split(" ")[0]}
+                                </span>
                               </div>
                             </th>
                           );
                         })}
                         {/* Casa column */}
-                        <th className="bg-[#1e2a3a] px-3.5 py-3 text-center min-w-[130px]">
-                          <div className="flex flex-col items-center gap-1">
-                            <div className="h-10 w-10 rounded-full bg-[#0a1628] border-2 border-[#00d9a5] flex items-center justify-center">
+                        <th
+                          className="bg-[#1e2a3a] px-2.5 py-3 text-center"
+                          style={{ minWidth: DATA_COL_MIN, width: DATA_COL_MIN }}
+                        >
+                          <div className="flex flex-col items-center gap-2">
+                            <div className="h-14 w-14 rounded-full bg-[#0a1628] border-2 border-[#00d9a5] flex items-center justify-center">
                               <BarChart3 className="h-5 w-5 text-[#00d9a5]" />
                             </div>
-                            <span className="text-white text-xs font-semibold">Casa</span>
+                            <span className="text-white text-[13px] font-semibold">Casa</span>
                           </div>
                         </th>
                       </tr>
@@ -616,7 +633,7 @@ const AdminRelatorios = () => {
                     <tbody>
                       {/* Serviços Row */}
                       <tr>
-                        <td className="bg-[#5dade2]/60 text-white font-semibold px-3 py-4 border-t border-[#2a3d5a]">
+                        <td className="bg-[#5dade2]/60 text-white font-semibold px-2.5 py-4 border-t border-[#2a3d5a]">
                           Serviços
                         </td>
                         {tableProfessionals.map((prof) => (
@@ -631,7 +648,7 @@ const AdminRelatorios = () => {
 
                       {/* Produtos Row */}
                       <tr>
-                        <td className="bg-[#9b8ec4]/60 text-white font-semibold px-3 py-4 border-t border-[#2a3d5a]">
+                        <td className="bg-[#9b8ec4]/60 text-white font-semibold px-2.5 py-4 border-t border-[#2a3d5a]">
                           Produtos
                         </td>
                         {tableProfessionals.map((prof) => (
@@ -646,7 +663,7 @@ const AdminRelatorios = () => {
 
                       {/* Assinaturas Row */}
                       <tr>
-                        <td className="bg-[#c9b23d]/60 text-white font-semibold px-3 py-4 border-t border-[#2a3d5a]">
+                        <td className="bg-[#c9b23d]/60 text-white font-semibold px-2.5 py-4 border-t border-[#2a3d5a]">
                           Assinaturas
                         </td>
                         {tableProfessionals.map((prof) => (
@@ -661,7 +678,7 @@ const AdminRelatorios = () => {
 
                       {/* Descontos Row */}
                       <tr>
-                        <td className="bg-[#e74c3c]/40 text-white font-semibold px-3 py-4 border-t border-[#2a3d5a]">
+                        <td className="bg-[#e74c3c]/40 text-white font-semibold px-2.5 py-4 border-t border-[#2a3d5a]">
                           Descontos(-)
                         </td>
                         {tableProfessionals.map((prof) => (
@@ -676,7 +693,7 @@ const AdminRelatorios = () => {
 
                       {/* Total Row */}
                       <tr>
-                        <td className="bg-[#7f8c8d]/40 text-white font-bold px-3 py-4 border-t border-[#2a3d5a]">
+                        <td className="bg-[#7f8c8d]/40 text-white font-bold px-2.5 py-4 border-t border-[#2a3d5a]">
                           Total
                         </td>
                         {tableProfessionals.map((prof) => (
@@ -691,7 +708,7 @@ const AdminRelatorios = () => {
 
                       {/* Comissão Row */}
                       <tr>
-                        <td className="bg-[#1abc9c]/40 text-white font-semibold px-3 py-4 border-t border-[#2a3d5a]">
+                        <td className="bg-[#1abc9c]/40 text-white font-semibold px-2.5 py-4 border-t border-[#2a3d5a]">
                           Comissão
                         </td>
                         {tableProfessionals.map((prof) => (
@@ -706,7 +723,7 @@ const AdminRelatorios = () => {
 
                       {/* Casa Row */}
                       <tr>
-                        <td className="bg-[#e67e22]/40 text-white font-semibold px-3 py-4 border-t border-[#2a3d5a]">
+                        <td className="bg-[#e67e22]/40 text-white font-semibold px-2.5 py-4 border-t border-[#2a3d5a]">
                           Casa
                         </td>
                         {tableProfessionals.map((prof) => (
