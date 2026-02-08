@@ -572,11 +572,11 @@ const AdminRelatorios = () => {
               {/* Total Detalhado Table */}
               <div className="bg-[#1e2a3a] rounded-2xl overflow-hidden">
                 <div className="overflow-x-auto max-w-[640px] w-full">
-                  <table className="min-w-[840px] text-base">
+                  <table className="min-w-[780px] text-base">
                     <thead>
                       <tr>
                         {/* Header: Label column */}
-                        <th className="bg-[#2ecc71] text-white font-bold text-left px-3 py-3.5 min-w-[92px]">
+                        <th className="bg-[#2ecc71] text-white font-bold text-left px-2.5 py-3.5 min-w-[72px]">
                           Total detalhado
                         </th>
                         {/* Professional columns */}
@@ -616,7 +616,7 @@ const AdminRelatorios = () => {
                     <tbody>
                       {/* Serviços Row */}
                       <tr>
-                        <td className="bg-[#5dade2]/60 text-white font-semibold px-4 py-4 border-t border-[#2a3d5a]">
+                        <td className="bg-[#5dade2]/60 text-white font-semibold px-3 py-4 border-t border-[#2a3d5a]">
                           Serviços
                         </td>
                         {tableProfessionals.map((prof) => (
@@ -631,7 +631,7 @@ const AdminRelatorios = () => {
 
                       {/* Produtos Row */}
                       <tr>
-                        <td className="bg-[#9b8ec4]/60 text-white font-semibold px-4 py-4 border-t border-[#2a3d5a]">
+                        <td className="bg-[#9b8ec4]/60 text-white font-semibold px-3 py-4 border-t border-[#2a3d5a]">
                           Produtos
                         </td>
                         {tableProfessionals.map((prof) => (
@@ -646,7 +646,7 @@ const AdminRelatorios = () => {
 
                       {/* Assinaturas Row */}
                       <tr>
-                        <td className="bg-[#c9b23d]/60 text-white font-semibold px-4 py-4 border-t border-[#2a3d5a]">
+                        <td className="bg-[#c9b23d]/60 text-white font-semibold px-3 py-4 border-t border-[#2a3d5a]">
                           Assinaturas
                         </td>
                         {tableProfessionals.map((prof) => (
@@ -661,7 +661,7 @@ const AdminRelatorios = () => {
 
                       {/* Descontos Row */}
                       <tr>
-                        <td className="bg-[#e74c3c]/40 text-white font-semibold px-4 py-4 border-t border-[#2a3d5a]">
+                        <td className="bg-[#e74c3c]/40 text-white font-semibold px-3 py-4 border-t border-[#2a3d5a]">
                           Descontos(-)
                         </td>
                         {tableProfessionals.map((prof) => (
@@ -676,7 +676,7 @@ const AdminRelatorios = () => {
 
                       {/* Total Row */}
                       <tr>
-                        <td className="bg-[#7f8c8d]/40 text-white font-bold px-4 py-4 border-t border-[#2a3d5a]">
+                        <td className="bg-[#7f8c8d]/40 text-white font-bold px-3 py-4 border-t border-[#2a3d5a]">
                           Total
                         </td>
                         {tableProfessionals.map((prof) => (
@@ -691,7 +691,7 @@ const AdminRelatorios = () => {
 
                       {/* Comissão Row */}
                       <tr>
-                        <td className="bg-[#1abc9c]/40 text-white font-semibold px-4 py-4 border-t border-[#2a3d5a]">
+                        <td className="bg-[#1abc9c]/40 text-white font-semibold px-3 py-4 border-t border-[#2a3d5a]">
                           Comissão
                         </td>
                         {tableProfessionals.map((prof) => (
@@ -706,7 +706,7 @@ const AdminRelatorios = () => {
 
                       {/* Casa Row */}
                       <tr>
-                        <td className="bg-[#e67e22]/40 text-white font-semibold px-4 py-4 border-t border-[#2a3d5a]">
+                        <td className="bg-[#e67e22]/40 text-white font-semibold px-3 py-4 border-t border-[#2a3d5a]">
                           Casa
                         </td>
                         {tableProfessionals.map((prof) => (
