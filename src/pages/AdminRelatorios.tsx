@@ -100,10 +100,13 @@ const AdminRelatorios = () => {
     const completed = filteredAppointments.filter((a) => a.status === "completed");
     const cancelled = filteredAppointments.filter((a) => a.status === "cancelled");
     const revenueSource = validAppointments;
-    const revenue = revenueSource.reduce(
-      (sum, a) => sum + (a.services?.price || a.service?.price || 0),
-      0
-    );
+    const serviceTotal = (a: any) => {
+      if (Array.isArray(a.services)) {
+        return a.services.reduce((acc: number, s: any) => acc + Number(s?.price || 0), 0);
+      }
+      return Number(a.services?.price || a.service?.price || a.price || 0);
+    };
+    const revenue = revenueSource.reduce((sum, a) => sum + serviceTotal(a), 0);
 
     // Top services (include scheduled and completed, ignore cancelled)
     const serviceMap = new Map<string, { count: number; revenue: number }>();
@@ -117,8 +120,12 @@ const AdminRelatorios = () => {
     // Professional stats (include scheduled and completed, ignore cancelled)
     const profMap = new Map<string, { count: number; revenue: number }>();
     revenueSource.forEach((a) => {
-      const profId = a.professional_id || "unknown";
-      const price = a.services?.price || a.service?.price || 0;
+      const profId =
+        a.professional_id ||
+        a.professionals?.id ||
+        (Array.isArray(a.professionals) ? a.professionals[0]?.id : null) ||
+        "unknown";
+      const price = serviceTotal(a);
       const existing = profMap.get(profId) || { count: 0, revenue: 0 };
       profMap.set(profId, { count: existing.count + 1, revenue: existing.revenue + price });
     });
