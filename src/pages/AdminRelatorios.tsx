@@ -1,5 +1,5 @@
 
-import { useEffect, useState, useMemo } from "react";
+import { useEffect, useState, useMemo, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { format, subDays, startOfMonth, endOfMonth, parse } from "date-fns";
 import { ptBR } from "date-fns/locale";
@@ -66,6 +66,7 @@ const AdminRelatorios = () => {
   const [endDate, setEndDate] = useState(() => format(new Date(), "yyyy-MM-dd"));
   const adminSession = getSession();
   const isLoggedIn = !!adminSession;
+  const fetchSeqRef = useRef(0);
 
   useEffect(() => {
     if (!isAuthenticated()) {
@@ -111,10 +112,12 @@ const AdminRelatorios = () => {
     // Top services (include scheduled and completed, ignore cancelled)
     const serviceMap = new Map<string, { count: number; revenue: number }>();
     revenueSource.forEach((a) => {
-      const name = a.services?.name || a.service?.name || "Outro";
-      const price = a.services?.price || a.service?.price || 0;
-      const existing = serviceMap.get(name) || { count: 0, revenue: 0 };
-      serviceMap.set(name, { count: existing.count + 1, revenue: existing.revenue + price });
+      const serviceName = Array.isArray(a.services)
+        ? (a.services[0]?.name || a.service?.name || "Outro")
+        : (a.services?.name || a.service?.name || "Outro");
+      const price = serviceTotal(a);
+      const existing = serviceMap.get(serviceName) || { count: 0, revenue: 0 };
+      serviceMap.set(serviceName, { count: existing.count + 1, revenue: existing.revenue + price });
     });
 
     // Professional stats (include scheduled and completed, ignore cancelled)
@@ -151,6 +154,7 @@ const AdminRelatorios = () => {
 
   const fetchReport = async () => {
     if (!isLoggedIn) return;
+    const seq = ++fetchSeqRef.current;
     setLoading(true);
 
     try {
@@ -159,6 +163,10 @@ const AdminRelatorios = () => {
         start_date: startDate,
         end_date: endDate,
       });
+      if (seq !== fetchSeqRef.current) {
+        // Já existe uma requisição mais recente; descarta este resultado para evitar dados incompletos
+        return;
+      }
       const appointments = (res?.appointments || []) as any[];
       setAppointmentsData(appointments);
     } catch (error) {
