@@ -162,18 +162,8 @@ const AdminRelatorios = () => {
       const appointments = (res?.appointments || []) as any[];
       setAppointmentsData(appointments);
     } catch (error) {
-      console.error("Error fetching report:", error);
-      try {
-        // Fallback: fetch today only
-        const res = await invokeAdminFunction("admin-appointments", {
-          action: "list",
-          date: format(new Date(), "yyyy-MM-dd"),
-        });
-        const appointments = (res?.appointments || []) as any[];
-        setAppointmentsData(appointments);
-      } catch (err) {
-        console.error("Fallback also failed:", err);
-      }
+      console.error("Error fetching report range (keeping previous data):", error);
+      // keep previous appointmentsData to avoid showing totals parciais
     } finally {
       setLoading(false);
     }
